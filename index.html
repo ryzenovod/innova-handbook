@@ -66,7 +66,8 @@
         <div class="nav-group">
           <div class="nav-title">Поддержка & Справочники</div>
           <a href="#troubleshooting" class="nav-link">7. Диагностика инцидентов</a>
-          <a href="#glossary" class="nav-link">8. Глоссарий терминов</a>
+          <a href="#yandex-tracker" class="nav-link">8. Яндекс.Трекер и Очереди</a>
+          <a href="#glossary" class="nav-link">9. Глоссарий терминов</a>
         </div>
       </nav>
     </aside>
@@ -371,9 +372,45 @@ HGB=203|10.0 ; Пересчет г/дл в г/л</code>
         </div>
       </section>
 
-      <!-- 8. Глоссарий терминов -->
+      <!-- 8. Яндекс.Трекер и Очереди задач -->
+      <section id="yandex-tracker" class="doc-section">
+        <h2 class="section-title">8. Яндекс.Трекер и Структура Задач</h2>
+        <p>
+          В компании вся текущая разработка, сопровождение и выезды ведутся в <strong>Яндекс.Трекере</strong> (организация <code>innova innova &amp; Co</code>). Всего в работе находится более 700 активных задач.
+        </p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">Очередь <code>Delivery</code> (Внедрение)</h3>
+            <p><strong>15 активных задач</strong> команды внедрения: подключение анализаторов на объектах (Vitek 2, Vitek MS, CFX96, DT96), настройка сервисов драйверов, запуск выгрузок СЭМД/РЭМД и настройка НСИ.</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Очередь <code>Drivers</code> / SRMDRV (Драйверы)</h3>
+            <p><strong>64 задачи</strong> по разработке и доработке драйверов анализаторов: Cobas 6000, Sysmex XN-550, Dymind DF55, Dymind UN73, Dirui H-100, Alisei QS, перевод драйверов на .NET 8.</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Очередь <code>LIS</code> (Ядро системы)</h3>
+            <p><strong>196 задач</strong> по развитию бизнес-логики ЛИС, алгоритмам списания, визитам, интеграциям с базой MS SQL и клиентским местам.</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Очередь <code>Exchange</code> (Обменные службы)</h3>
+            <p><strong>33 задачи</strong> по интеграции с внешними медицинскими системами (МИС) поликлиник и стационаров, форматам обмена и очередям сообщений.</p>
+          </div>
+        </div>
+
+        <div class="alert alert-success">
+          <div class="alert-title">💡 Стандарты новых .NET драйверов (из Яндекс.Вики)</div>
+          <ul>
+            <li><strong>Транспортные каналы:</strong> <code>TCPServer</code> (по умолчанию), <code>TCPClient</code>, <code>RS232</code> (COM-порт), <code>FILEEXCHANGE_CONFIG</code> (файловый обмен).</li>
+            <li><strong>Логирование:</strong> переход на единый стандарт <code>Serilog</code>. Обозначения в логе: <code>&lt;&lt;</code> (отправка на анализатор), <code>&gt;&gt;</code> (получение с прибора).</li>
+            <li><strong>Утилиты для тестов:</strong> <code>ASTM_Simulator</code> и <code>SendComPort</code> для эмуляции ответов приборов на тестовом стенде.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 9. Глоссарий терминов -->
       <section id="glossary" class="doc-section">
-        <h2 class="section-title">8. Глоссарий терминов ЛИС</h2>
+        <h2 class="section-title">9. Глоссарий терминов ЛИС</h2>
         <div class="table-wrapper">
           <table>
             <thead>
