@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Справочник Специалиста Внедрения ЛИС | InnovaSystem</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="app-header">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <button class="icon-btn mobile-toggle" id="mobileToggle" aria-label="Меню">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <a href="#" class="brand">
+        <span>InnovaSystem</span>
+        <span class="brand-badge">Внедрение & Сопровождение</span>
+      </a>
+    </div>
+
+    <div class="header-actions">
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск по базе знаний...">
+      </div>
+      <button class="icon-btn" id="themeToggle" title="Сменить тему">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <a href="https://github.com/ryzenovod/innova-handbook" target="_blank" class="icon-btn" title="GitHub Репозиторий">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="app-sidebar" id="sidebar">
+      <div class="progress-card">
+        <div class="progress-label">
+          <span>Прогресс изучения</span>
+          <span id="progressText">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <div class="nav-title">Архитектура и Стандарты</div>
+          <a href="#architecture" class="nav-link active">1. Архитектура ЛИС</a>
+          <a href="#rules" class="nav-link">2. Золотые правила внедрения</a>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-title">Практика и Онбординг</div>
+          <a href="#onboarding" class="nav-link">3. План адаптации (Чек-лист)</a>
+          <a href="#analyzers" class="nav-link">4. Подключение анализаторов</a>
+          <a href="#mapping" class="nav-link">5. Маппинг и разбор логов</a>
+          <a href="#deployment" class="nav-link">6. Разворачивание компонентов</a>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-title">Поддержка & Справочники</div>
+          <a href="#troubleshooting" class="nav-link">7. Диагностика инцидентов</a>
+          <a href="#glossary" class="nav-link">8. Глоссарий терминов</a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="app-content">
+
+      <!-- Hero Banner -->
+      <section class="hero-banner">
+        <h1 class="hero-title">База знаний и онбординг внедренца</h1>
+        <p class="hero-subtitle">
+          Практический путеводитель по лабораторной информационной системе (ЛИС): архитектура, интеграция анализаторов, работа с базой данных и решение аварий на объектах.
+        </p>
+      </section>
+
+      <!-- 1. Архитектура ЛИС -->
+      <section id="architecture" class="doc-section">
+        <h2 class="section-title">1. Архитектура ЛИС InnovaSystem</h2>
+        <p>
+          Лабораторная информационная система (ЛИС) автоматизирует весь цикл работы клинико-диагностической лаборатории: от регистрации пробирки на входе до выдачи подписанного бланка результатов в медицинскую информационную систему (МИС).
+        </p>
+
+        <div class="diagram-container">
+          <div class="mermaid">
+          flowchart TD
+            MIS["Медицинская система клиники (МИС)"] <-->|"HL7 / XML / REST"| MisEx["Обменная служба (MisExchange)"]
+            MisEx <-->|"Заявки / Ответы"| DB[("БД MS SQL Server")]
+            
+            subgraph LIS_Core ["Ядро ЛИС"]
+              DB <--> LIS_Server["Сервер ЛИС (Бизнес-логика)"]
+              LIS_Server <--> TK["Толстый клиент ЛИС (АРМ врача/лаборанта)"]
+              LIS_Server <--> Web["Веб-клиент (WEB2 / WEB3)"]
+            end
+
+            subgraph Integration ["Интеграция с лабораторией"]
+              DB <--> DriverServer["Сервер Драйверов (СД)"]
+              DB <--> ReportServer["Сервер Отчетов (СО / FastReport)"]
+              DriverServer <-->|"ASTM 1394 / HL7 (RS232 / TCP)"| Analyzers["Лабораторные анализаторы (Sysmex, Roche, Beckman)"]
+              ReportServer -->|"Печать бланков / PDF"| Printers["Принтеры / PDF хранилище"]
+            end
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">СУБД MS SQL Server</h3>
+            <p>Центральное хранилище данных: карточки пациентов, заказы, пробирки (образцы), нормативные справочники (НСИ), результаты исследований и журналы аудита.</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Сервер Драйверов (СД)</h3>
+            <p>Служба, обеспечивающая двусторонний обмен с приборами. Передает на анализатор задание на исследование по штрихкоду и забирает готовые результаты.</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Сервер Отчетов (СО)</h3>
+            <p>Формирует печатные бланки на основе шаблонов FastReport. Управляет очередями печати этикеток штрихкодов и готовых результатов исследований.</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Обменная служба (MisExchange)</h3>
+            <p>Шлюз интеграции с внешними системами больниц и поликлиник (ЕМИАС, Инфоклиника, 1С Медицина, МЕДИАЛОГ) по протоколам HL7 v2, v3 и SOAP/REST.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Золотые правила -->
+      <section id="rules" class="doc-section">
+        <h2 class="section-title">2. Золотые правила внедренца</h2>
+        <p>Эти правила написаны кровью и бессонными ночами инженеров сопровождения. Обязательны к соблюдению на всех объектах:</p>
+
+        <div class="alert alert-important">
+          <div class="alert-title">⚠️ Правило Красного Справочника</div>
+          Если ты правишь справочник тестов или норм, подсвеченный красным цветом — перед началом работы <strong>обязательно нажми «Обновить»</strong>, а лучше перезайти в клиент ЛИС. Иначе затрешь правки коллег или спровоцируешь рассинхронизацию кэша!
+        </div>
+
+        <div class="alert alert-danger">
+          <div class="alert-title">⛔ Безопасность оборудования лаборатории</div>
+          <ul>
+            <li><strong>Все анализаторы на объекте включает и выключает ТОЛЬКО персонал лаборатории.</strong> Внедренец не имеет права трогать тумблеры питания дорогостоящих приборов.</li>
+            <li><strong>Все провода (RS-232, Ethernet, USB) подключаются и отключаются ТОЛЬКО на ВЫКЛЮЧЕННОЙ аппаратуре.</strong> Горячее переключение COM-портов сжигает платы интерфейсов!</li>
+          </ul>
+        </div>
+
+        <div class="alert alert-success">
+          <div class="alert-title">🛡️ Регламент работы с серверами</div>
+          <ul>
+            <li><strong>Полные бэкапы:</strong> Перед накатом обновлений, правкой скриптов или миграциями всегда делай полный бэкап базы данных MS SQL.</li>
+            <li><strong>Права:</strong> Все утилиты, драйверы и клиенты запускать исключительно <em>от имени Администратора</em>.</li>
+            <li><strong>Согласование:</strong> Любое обновление боевой базы и служб обязательно предварительно согласовывается с ответственным от заказчика.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3. План адаптации -->
+      <section id="onboarding" class="doc-section">
+        <h2 class="section-title">3. План адаптации (Интерактивный чек-лист)</h2>
+        <p>Отмечай пройденные пункты — прогресс сохраняется в твоем браузере и готовит тебя к аттестации по итогам испытательного срока.</p>
+
+        <h3 class="subsection-title">Неделя 1: Базовое погружение и рабочее место</h3>
+        <ul class="checklist">
+          <li class="checklist-item">
+            <input type="checkbox" id="c1">
+            <label for="c1" class="checklist-text">
+              Получение доступов и настройка ПО
+              <div class="checklist-subtext">Доменная учетка, почта, база знаний, HelpDesk, среда разработки и утилиты (SSMS, NPort Administrator, Wireshark).</div>
+            </label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="c2">
+            <label for="c2" class="checklist-text">
+              Изучение архитектуры и базового глоссария
+              <div class="checklist-subtext">Понимание ролей АРМ, КДЛ, ЛИС, СД, СО, ТК, НСИ и потоков данных между ними.</div>
+            </label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="c3">
+            <label for="c3" class="checklist-text">
+              Разворачивание тестового стенда
+              <div class="checklist-subtext">Установка СУБД MS SQL, накат тестовой базы ЛИС, установка и запуск Толстого Клиента.</div>
+            </label>
+          </li>
+        </ul>
+
+        <h3 class="subsection-title">Неделя 2: Анализаторы, драйверы и обмен</h3>
+        <ul class="checklist">
+          <li class="checklist-item">
+            <input type="checkbox" id="c4">
+            <label for="c4" class="checklist-text">
+              Освоение Сервера Драйверов (СД)
+              <div class="checklist-subtext">Конфигурация драйверов, запуск службы, привязка портов COM/TCP.</div>
+            </label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="c5">
+            <label for="c5" class="checklist-text">
+              Написание файла маппинга анализатора
+              <div class="checklist-subtext">Сопоставление внешних кодов прибора (Host Code) с внутренними параметрами исследований в ЛИС.</div>
+            </label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="c6">
+            <label for="c6" class="checklist-text">
+              Анализ сырых логов обмена (ASTM / HL7)
+              <div class="checklist-subtext">Умение находить фреймы <ENQ>, <ACK>, заголовки заказов (O) и строки результатов (R).</div>
+            </label>
+          </li>
+        </ul>
+
+        <h3 class="subsection-title">Неделя 3+: Эксплуатация и боевые задачи</h3>
+        <ul class="checklist">
+          <li class="checklist-item">
+            <input type="checkbox" id="c7">
+            <label for="c7" class="checklist-text">
+              Работа по заявкам в HelpDesk
+              <div class="checklist-subtext">Классификация инцидентов, диагностика, подготовка баг-репортов для разработчиков.</div>
+            </label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="c8">
+            <label for="c8" class="checklist-text">
+              Учебный выезд на объект с наставником
+              <div class="checklist-subtext">Подключение прибора в боевой лаборатории, проверка маркировки штрихкодов, подписание акта.</div>
+            </label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="c9">
+            <label for="c9" class="checklist-text">
+              Успешное прохождение аттестации
+              <div class="checklist-subtext">Теоретический срез знаний и демонстрация самостоятельного решения кейса куратору.</div>
+            </label>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 4. Подключение анализаторов -->
+      <section id="analyzers" class="doc-section">
+        <h2 class="section-title">4. Подключение лабораторных анализаторов</h2>
+        <p>
+          Подключение приборов — основная и самая ответственная часть работы инженера внедрения. Приборы передают результаты по последовательному интерфейсу (RS-232) или по локальной сети (TCP/IP).
+        </p>
+
+        <h3 class="subsection-title">Типы физического подключения</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Тип связи</th>
+                <th>Физический уровень</th>
+                <th>Оборудование / Настройка</th>
+                <th>Особенности</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>RS-232 (Прямой)</strong></td>
+                <td>COM-порт (DB9 / DB25)</td>
+                <td>Прямой нуль-модемный кабель к ПК</td>
+                <td>Ограничение по длине (до 15 метров). Требует согласования скорости (Baud rate), бит данных и четности.</td>
+              </tr>
+              <tr>
+                <td><strong>Moxa NPort</strong></td>
+                <td>Ethernet &rarr; RS-232</td>
+                <td>Сервер последовательных интерфейсов NPort</td>
+                <td>Позволяет подключить прибор с COM-портом в любую точку локальной сети через виртуальный COM-порт.</td>
+              </tr>
+              <tr>
+                <td><strong>TCP/IP Direct</strong></td>
+                <td>Ethernet RJ-45</td>
+                <td>Сетевой кабель в свитч лаборатории</td>
+                <td>Прибор работает как TCP-клиент или TCP-сервер на заданном порту (обычно 5100, 5600, 10001).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="subsection-title">Стандарты протоколов обмена</h3>
+        <p>Большинство приборов работают по стандарту <strong>ASTM 1394 / ASTM 1381</strong> или <strong>HL7 v2.x</strong>:</p>
+        
+        <div class="card">
+          <h4 style="margin-bottom: 0.5rem; color: var(--primary);">Анатомия сессии ASTM:</h4>
+          <ol style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.8;">
+            <li><code>&lt;ENQ&gt;</code> (0x05) — Анализатор запрашивает разрешение на отправку («Хочу передать данные»).</li>
+            <li><code>&lt;ACK&gt;</code> (0x06) — Драйвер отвечает («Готов, принимаю»).</li>
+            <li><code>&lt;STX&gt;1H|\^&amp;|||LIS||||||||1394-97&lt;CR&gt;&lt;ETX&gt;XX&lt;CR&gt;&lt;LF&gt;</code> — Заголовок сообщения (Header).</li>
+            <li><code>&lt;STX&gt;2P|1||||Иванов^Иван^Иванович||19800101|M&lt;CR&gt;&lt;ETX&gt;XX&lt;CR&gt;&lt;LF&gt;</code> — Пациент (Patient).</li>
+            <li><code>&lt;STX&gt;3O|1|1002345||^^^GLU\^^^ALT|||20261026||||||||||||||||O&lt;CR&gt;&lt;ETX&gt;XX&lt;CR&gt;&lt;LF&gt;</code> — Заказ (Order).</li>
+            <li><code>&lt;STX&gt;4R|1|^^^GLU|5.4|mmol/L|3.9-6.1|N||F||||20261026103000&lt;CR&gt;&lt;ETX&gt;XX&lt;CR&gt;&lt;LF&gt;</code> — Результат (Result: Глюкоза 5.4 ммоль/л).</li>
+            <li><code>&lt;STX&gt;5L|1|N&lt;CR&gt;&lt;ETX&gt;XX&lt;CR&gt;&lt;LF&gt;</code> — Окончание сообщения (Terminator).</li>
+            <li><code>&lt;EOT&gt;</code> (0x04) — Сессия завершена.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 5. Маппинг и разбор логов -->
+      <section id="mapping" class="doc-section">
+        <h2 class="section-title">5. Маппинг и чтение логов</h2>
+        <p>
+          Каждый анализатор называет тесты по-своему: например, прибор выдает тест <code>GLU</code>, а в ЛИС этот тест заведен под внутренним кодом <code>101</code>. Файл маппинга связывает эти две вселенные.
+        </p>
+
+        <h3 class="subsection-title">Пример секции файла маппинга (.ini / .xml)</h3>
+        <div class="code-block">
+          <button class="copy-btn">Копировать</button>
+          <code>[MAPPING]
+; Код теста в анализаторе = ID параметра в ЛИС | Коэффициент пересчета
+GLU=101|1.0
+CHOL=102|1.0
+ALT=105|1.0
+AST=106|1.0
+WBC=201|1.0
+RBC=202|1.0
+HGB=203|10.0 ; Пересчет г/дл в г/л</code>
+        </div>
+
+        <h3 class="subsection-title">Чек-лист анализа лога драйвера при аварии:</h3>
+        <ul style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.8;">
+          <li>Приходит ли <code>&lt;ENQ&gt;</code> от прибора? Если нет — прибор физически отключен или выключена передача в его меню.</li>
+          <li>Отвечает ли драйвер <code>&lt;ACK&gt;</code>? Если драйвер молчит или шлет <code>&lt;NAK&gt;</code> — порт занят другой программой или неверная скорость.</li>
+          <li>Присутствует ли штрихкод в строке заказа (Record O)? Если штрихкод пустой — пробирка не прочитана сканером прибора.</li>
+          <li>Есть ли ошибка <em>"Unknown test code"</em> в логе? Значит, прибор прислал результат теста, которого нет в файле маппинга.</li>
+        </ul>
+      </section>
+
+      <!-- 6. Разворачивание компонентов -->
+      <section id="deployment" class="doc-section">
+        <h2 class="section-title">6. Разворачивание и настройка компонентов</h2>
+        
+        <h3 class="subsection-title">Порядок ввода объекта в эксплуатацию:</h3>
+        <ol style="padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.9;">
+          <li><strong>Развертывание базы данных:</strong> Создание базы на MS SQL Server, накат базовой схемы, создание системных пользователей и прав.</li>
+          <li><strong>Установка ядра ЛИС:</strong> Настройка параметров подключения к БД в конфигурационных файлах.</li>
+          <li><strong>Установка Толстого Клиента (ТК):</strong> Установка на рабочие места лаборантов, настройка ярлыков, проверка сетевой доступности сервера ЛИС.</li>
+          <li><strong>Настройка Сервера Драйверов:</strong> Регистрация службы Windows, настройка портов для всех анализаторов лаборатории.</li>
+          <li><strong>Настройка Сервера Отчетов:</strong> Установка шрифтов, шаблонов бланков, подключение локальных и сетевых принтеров.</li>
+        </ol>
+      </section>
+
+      <!-- 7. Диагностика инцидентов -->
+      <section id="troubleshooting" class="doc-section">
+        <h2 class="section-title">7. Диагностика инцидентов (Troubleshooting)</h2>
+        
+        <div class="grid-2">
+          <div class="card" style="border-left: 4px solid var(--accent-red);">
+            <h3 class="card-title" style="color: var(--accent-red);">Проблема: Анализатор не передает результаты</h3>
+            <p><strong>Чек-лист:</strong></p>
+            <ol style="padding-left: 1rem; font-size: 0.85rem; line-height: 1.6;">
+              <li>Проверь статус службы Сервера Драйверов (Running).</li>
+              <li>Проверь физический кабель (не перебит ли, надежно ли закручен DB9).</li>
+              <li>Если подключен через Moxa NPort — пингуется ли IP Moxa? Зайди в веб-интерфейс Moxa и проверь Line status.</li>
+              <li>Открой лог драйвера в реальном времени. Шлет ли прибор <code>&lt;ENQ&gt;</code>?</li>
+            </ol>
+          </div>
+
+          <div class="card" style="border-left: 4px solid var(--accent-amber);">
+            <h3 class="card-title" style="color: var(--accent-amber);">Проблема: Не печатаются бланки ответов</h3>
+            <p><strong>Чек-лист:</strong></p>
+            <ol style="padding-left: 1rem; font-size: 0.85rem; line-height: 1.6;">
+              <li>Проверь службу Сервера Отчетов (СО). Перезапусти при зависании.</li>
+              <li>Проверь очередь печати в Windows (нет ли зависшего документа).</li>
+              <li>Проверь статус исследования в ЛИС: результат должен быть переведен в статус «Одобрен/Утвержден».</li>
+              <li>Проверь наличие шаблона бланка в каталоге отчетов.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. Глоссарий терминов -->
+      <section id="glossary" class="doc-section">
+        <h2 class="section-title">8. Глоссарий терминов ЛИС</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 25%;">Термин / Сокращение</th>
+                <th>Значение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>АРМ</strong></td><td>Автоматизированное рабочее место (компьютер врача, лаборанта или регистратора).</td></tr>
+              <tr><td><strong>КДЛ</strong></td><td>Клинико-диагностическая лаборатория.</td></tr>
+              <tr><td><strong>ТК (Толстый клиент)</strong></td><td>Основное десктопное приложение ЛИС для Windows, в котором работают сотрудники лаборатории.</td></tr>
+              <tr><td><strong>СД (Сервер драйверов)</strong></td><td>Служба сопряжения с анализаторами для двустороннего обмена заданиями и результатами.</td></tr>
+              <tr><td><strong>СО (Сервер отчетов)</strong></td><td>Сервис формирования и вывода на печать бланков результатов и штрихкодовых этикеток.</td></tr>
+              <tr><td><strong>НСИ</strong></td><td>Нормативно-справочная информация (справочники исследований, норм, биоматериалов, пробирок).</td></tr>
+              <tr><td><strong>ASTM</strong></td><td>Американский стандарт протокола связи лабораторного оборудования по последовательным портам.</td></tr>
+              <tr><td><strong>HL7</strong></td><td>Международный стандарт обмена медицинской информацией между разнородными информационными системами.</td></tr>
+              <tr><td><strong>Moxa NPort</strong></td><td>Аппаратный преобразователь интерфейсов RS-232/485 в Ethernet.</td></tr>
+              <tr><td><strong>Аликвотирование</strong></td><td>Разделение первичного образца биоматериала (сыворотки) на несколько вторичных пробирок.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
