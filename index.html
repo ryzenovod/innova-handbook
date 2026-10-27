@@ -24,7 +24,7 @@
     <div class="header-actions">
       <div class="search-container">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" class="search-input" placeholder="Поиск: SQL, ASTM, Cobas, Moxa, лог...">
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск: кассы, SQL, ASTM, Cobas, лог...">
       </div>
       <button class="icon-btn" id="themeToggle" title="Сменить тему">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -56,25 +56,27 @@
         </div>
 
         <div class="nav-group">
-          <div class="nav-title">Интерактивные Инструменты</div>
-          <a href="#toolbox" class="nav-link">3. Инженерный Тулбокс (5 утилит)</a>
-          <a href="#log-lab" class="nav-link">4. Диагностика логов (Лаборатория)</a>
+          <div class="nav-title">Инженерный Тулбокс</div>
+          <a href="#toolbox" class="nav-link">3. Тулбокс (5 утилит)</a>
+          <a href="#log-lab" class="nav-link">4. Диагностика логов</a>
           <a href="#sop-workflow" class="nav-link">5. СОП Подключения прибора</a>
         </div>
 
         <div class="nav-group">
-          <div class="nav-title">Оборудование и Протоколы</div>
-          <a href="#analyzers-matrix" class="nav-link">6. Матрица анализаторов (10 моделей)</a>
-          <a href="#sql-knowledge" class="nav-link">7. T-SQL База знаний</a>
-          <a href="#cmd-center" class="nav-link">8. Консольный командный центр</a>
+          <div class="nav-title">Оборудование и Сервисы</div>
+          <a href="#analyzers-matrix" class="nav-link">6. Матрица анализаторов (10 шт)</a>
+          <a href="#cash-service" class="nav-link">7. Кассовый сервис (Штрих-М / 54-ФЗ)</a>
+          <a href="#smart-vpn" class="nav-link">8. Умный VPN (Split-Tunneling)</a>
+          <a href="#sql-knowledge" class="nav-link">9. T-SQL База знаний</a>
+          <a href="#cmd-center" class="nav-link">10. Консольный командный центр</a>
         </div>
 
         <div class="nav-group">
-          <div class="nav-title">Практика и Тренажеры</div>
-          <a href="#simulator" class="nav-link">9. Тренажер аварийных ситуаций</a>
-          <a href="#yandex-tracker" class="nav-link">10. Трекер и Очереди задач</a>
-          <a href="#onboarding" class="nav-link">11. Чек-лист аттестации</a>
-          <a href="#glossary" class="nav-link">12. Полный глоссарий</a>
+          <div class="nav-title">Практика и Онбординг</div>
+          <a href="#simulator" class="nav-link">11. Тренажер инцидентов</a>
+          <a href="#yandex-tracker" class="nav-link">12. Трекер и Очереди задач</a>
+          <a href="#onboarding" class="nav-link">13. Программа аттестации (Фазы 0-7)</a>
+          <a href="#glossary" class="nav-link">14. Полный глоссарий</a>
         </div>
       </nav>
     </aside>
@@ -86,7 +88,7 @@
       <section class="hero-banner">
         <h1 class="hero-title">Инженерный справочник внедренца ЛИС</h1>
         <p class="hero-subtitle">
-          Полное практическое руководство специалиста отдела внедрения InnovaSystem: архитектура пяти уровней, интерактивные декодеры ASTM/HL7, генератор маппинга VMOM, база боевых T-SQL запросов, матрица 10 анализаторов и симулятор аварийных вызовов в КДЛ.
+          Полное практическое руководство специалиста отдела внедрения InnovaSystem: архитектура пяти уровней, интерактивные декодеры ASTM/HL7, кассовые модули ККМ, база боевых T-SQL запросов, матрица 10 анализаторов и официальная программа аттестации сотрудника.
         </p>
       </section>
 
@@ -94,7 +96,7 @@
       <section id="architecture" class="doc-section">
         <h2 class="section-title">1. Архитектура ЛИС (Deep Dive)</h2>
         <p>
-          Лабораторная информационная система (ЛИС) управляет полным жизненным циклом образцов в клинико-диагностической лаборатории: от регистрации штрихкодированной пробирки до автоматического получения измерений с приборов и отправки протокола в медицинскую карту пациента.
+          Лабораторная информационная система (ЛИС) управляет полным жизненным циклом исследований в КДЛ: от направления из МИС до автоматического получения измерений с приборов и выдачи протокола в электронную медкарту.
         </p>
 
         <div class="diagram-container">
@@ -104,17 +106,17 @@
             MisEx <-->|"Заявки / Ответы"| DB[("Центральная СУБД MS SQL Server")]
             
             subgraph LIS_Core ["Ядро ЛИС (Сервер приложений и клиенты)"]
-              DB <--> LIS_Server["Сервер ЛИС (Бизнес-логика)"]
+              DB <--> LIS_Server["Сервер ЛИС (Бизнес-логика / Apache Tomcat)"]
               LIS_Server <--> TK["Толстый клиент (АРМ врача/лаборанта на Windows)"]
-              LIS_Server <--> Web["Веб-клиент (WEB2 / WEB3 на Linux/Docker)"]
+              LIS_Server <--> Web["Веб-клиент (WebLims 2.0 / WEB3 на Linux/Docker)"]
             end
 
-            subgraph Devices ["Контур сопряжения с анализаторами"]
+            subgraph Devices ["Контур сопряжения с анализаторами и кассами"]
               DB <--> DriverServer["Сервер Драйверов (LimsDriverServer / .NET 8 / C++)"]
               DriverServer <-->|"RS-232 COM-порт"| Moxa["Moxa NPort (Сервер портов 5110/5150)"]
               DriverServer <-->|"TCP/IP Direct (порт 5100, 10001)"| AnalyzersDirect["Анализаторы Ethernet (Sysmex, Cobas)"]
               Moxa <-->|"Нуль-модемный кабель DB9"| AnalyzersCOM["Анализаторы COM (Mindray, Dirui, Vitek)"]
-              DriverServer <-->|"Файловый обмен (CSV / XML)"| AnalyzersFile["ПЦР / ИФА (CFX96, DT96)"]
+              Web <-->|"Порт 54257"| Cash["Сервер ККМ (CashMachineService / Штрих-М)"]
             end
 
             subgraph Reporting ["Генерация и печать отчетов"]
@@ -125,7 +127,30 @@
           </div>
         </div>
 
-        <div class="grid-2">
+        <!-- Иерархия сущностей -->
+        <div class="card" style="margin-top: 1.5rem; border-left: 4px solid var(--primary);">
+          <h3 class="card-title">Иерархия сущностей ЛИС: Заявка → Проба → Работа (Тест)</h3>
+          <p>
+            Фундаментальная модель данных, на которой построена вся логика работы лаборатории:
+          </p>
+          <div class="mermaid">
+          flowchart LR
+            App["1. Заявка (Application)<br>Направление из МИС / Регистратуры<br><i>Привязана к Пациенту</i>"] --> Spec["2. Проба (Specimen)<br>Физическая пробирка<br><i>Имеет Штрихкод и Биоматериал</i>"]
+            Spec --> Work["3. Работа / Тест (Work / Test)<br>Конкретное измерение<br><i>Глюкоза, АЛТ, Лейкоциты</i>"]
+            Work --> Res["4. Результат (AnalysisResult)<br>Значение, норма, статус<br><i>Одобрен врачом КЛД</i>"]
+          </div>
+        </div>
+
+        <div class="alert alert-important" style="margin-top: 1rem;">
+          <div class="alert-title">⚠️ Ловушка терминов: «Регистрация заявки» ≠ «Регистрация пробы»</div>
+          Это фундаментальное различие, которое проверяют на аттестации:
+          <ul style="padding-left: 1.25rem; font-size: 0.9rem; margin-top: 0.5rem; line-height: 1.7;">
+            <li><strong>Регистрация заявки (Application):</strong> Ввод направления на пациента, выбор медицинских услуг, расчет стоимости и печать направлений. В этот момент физического биоматериала в лаборатории еще может не быть!</li>
+            <li><strong>Регистрация пробы (Specimen):</strong> Физический факт забора и сканирования штрихкода пробирки в процедурном кабинете. Пробирка привязывается к целевому штативу, фиксируется системное время забора и доставки. Заявка может содержать 3 разные пробы (сыворотка, ЭДТА, моча), каждая из которых регистрируется отдельно!</li>
+          </ul>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.25rem;">
           <div class="card">
             <h3 class="card-title">1. СУБД MS SQL Server</h3>
             <p><strong>Роль:</strong> Центральное хранилище данных и состояний.</p>
@@ -180,8 +205,8 @@
 
         <div class="alert alert-important">
           <div class="alert-title">⚠️ 1. Правило «Красного Справочника» (Red Dictionary Rule)</div>
-          Когда в клиенте ЛИС справочник (тесты, профили, нормы, отделения) подсвечен красным — это значит, что другой пользователь или зависшая сессия держит эксклюзивную блокировку в таблице <code>SystemLock</code>, либо локальный кэш устарел.
-          <br><strong>Действие инженера:</strong> <em>Категорически запрещено</em> вносить правки поверх красного справочника! Всегда сначала нажми «Обновить», а лучше полностью перезапусти толстый клиент ЛИС. Попытка принудительного сохранения приведет к затиранию чужих изменений или блокировке всей базы.
+          Когда в клиенте ЛИС справочник подсвечен красным — это значит, что другой пользователь или зависшая сессия держит блокировку в таблице <code>SystemLock</code>, либо локальный кэш устарел.
+          <br><strong>Действие инженера:</strong> <em>Категорически запрещено</em> вносить правки поверх красного справочника! Всегда сначала нажми «Обновить», а лучше полностью перезапусти толстый клиент ЛИС. Попытка принудительного сохранения затрет чужие настройки или заблокирует базу.
         </div>
 
         <div class="alert alert-danger">
@@ -202,10 +227,10 @@
         </div>
       </section>
 
-      <!-- 3. Инженерный Тулбокс (5 утилит) -->
+      <!-- 3. Инженерный Тулбокс -->
       <section id="toolbox" class="doc-section">
         <h2 class="section-title">3. Инженерный Тулбокс (5 Интерактивных Утилит)</h2>
-        <p>Эти профессиональные инструменты работают прямо в браузере и решают задачи расшифровки, валидации и генерации файлов прямо на выезде к заказчику:</p>
+        <p>Эти утилиты работают прямо в браузере и решают задачи расшифровки, валидации и генерации файлов прямо на выезде к заказчику:</p>
 
         <!-- Tool 1: ASTM 1394 Frame Decoder -->
         <div class="toolbox-card">
@@ -240,7 +265,7 @@
           <div class="result-panel" id="checksumOutput">// Здесь появится контрольная сумма...</div>
         </div>
 
-        <!-- Tool 3: HL7 v2 Inspector & ACK Generator -->
+        <!-- Tool 3: HL7 v2 Inspector -->
         <div class="toolbox-card">
           <div class="toolbox-header">
             <span class="toolbox-title">📨 Утилита 3: Инспектор HL7 v2 и Генератор пакета подтверждения (MSA|AA)</span>
@@ -341,7 +366,7 @@ OBX|3|NM|HGB^Гемоглобин||148|g/L|120-160|N|||F</textarea>
       <section id="log-lab" class="doc-section">
         <h2 class="section-title">4. Интерактивная диагностическая лаборатория логов</h2>
         <p>
-          Вставь сырой фрагмент лога анализатора из <code>C:\temp\LISClient.exe-[Драйвер]-YYYYMMDD.txt</code> или выбери один из 6 типовых инцидентов. Диагностический движок определит точную причину сбоя и покажет инструкцию по устранению:
+          Вставь сырой фрагмент лога анализатора из <code>C:\temp\LISClient.exe-[Драйвер]-YYYYMMDD.txt</code> или выбери один из 6 типовых инцидентов:
         </p>
 
         <div class="preset-pills">
@@ -366,9 +391,7 @@ OBX|3|NM|HGB^Гемоглобин||148|g/L|120-160|N|||F</textarea>
       <!-- 5. СОП Подключения прибора -->
       <section id="sop-workflow" class="doc-section">
         <h2 class="section-title">5. СОП: Пошаговый регламент подключения анализатора (От А до Я)</h2>
-        <p>
-          Официальная стандартная операционная процедура (СОП) отдела внедрения InnovaSystem. Кликни на шаг для просмотра детальных инструкций и команд:
-        </p>
+        <p>Официальная стандартная операционная процедура (СОП) отдела внедрения InnovaSystem:</p>
 
         <div class="sop-list">
           <div class="sop-card open">
@@ -377,14 +400,7 @@ OBX|3|NM|HGB^Гемоглобин||148|g/L|120-160|N|||F</textarea>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>Перед началом работ зафиксируй в карточке объекта:</p>
-              <ul style="padding-left: 1.25rem;">
-                <li>Точную модель прибора и версию прошивки (например, <em>Mindray BC-5300 v2.1</em>).</li>
-                <li>Физический тип соединения: RS-232 прямой COM, Moxa NPort (IP/Порт), прямой Ethernet TCP/IP или файловая папка.</li>
-                <li>Параметры COM-порта: Скорость (Baud), Четность (Parity), Биты данных (Data bits), Стоп-биты, Аппаратный контроль потока (Flow Control).</li>
-                <li>Кто выступает TCP-сервером, а кто клиентом (если прибор по Ethernet).</li>
-                <li>ФИО и телефон инженера поставщика оборудования (сервисной службы).</li>
-              </ul>
+              <p>Перед началом работ зафиксируй: модель прибора, тип соединения (COM/Moxa/TCP/Файл), параметры COM (Baud, Parity, Data, Stop), контакты инженера поставщика оборудования.</p>
             </div>
           </div>
 
@@ -394,15 +410,7 @@ OBX|3|NM|HGB^Гемоглобин||148|g/L|120-160|N|||F</textarea>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>Проверь сетевую доступность и открытые порты с сервера ЛИС:</p>
-              <div class="code-block" style="margin: 0.5rem 0;">
-                <code>-- Проверка доступности порта анализатора или Moxa
-telnet 192.168.10.55 5100
-
--- В PowerShell:
-Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
-              </div>
-              <p>Если используется Moxa NPort: открой <strong>NPort Administrator</strong>, выполни Broadcast Search, переведи порт в режим <code>Real COM</code> или <code>TCP Server</code>, зафиксируй присвоенный номер COM-порта (например, COM3).</p>
+              <p>Проверь сетевую доступность: <code>telnet 192.168.10.55 5100</code> или в PowerShell: <code>Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>. На Moxa настроить режим <code>Real COM</code> или <code>TCP Server</code>.</p>
             </div>
           </div>
 
@@ -412,13 +420,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>Проверь наличие драйвера в папке <code>DeviceDriverServer</code> на сервере:</p>
-              <ol style="padding-left: 1.25rem;">
-                <li>Если драйвера нет — скачай свежий билд из сетевой папки: <code>\\lis50\buildsystem\dotnetDrivers_Distrib\builds</code>.</li>
-                <li>Останови Сервер Драйверов (проверь, чтобы WatchDog не перезапустил его).</li>
-                <li>Запусти командную строку (cmd) <strong>от имени Администратора</strong>, перейди в папку драйверов и выполни: <code>regdrv.exe</code>.</li>
-                <li>Запусти Сервер Драйверов от имени Администратора.</li>
-              </ol>
+              <p>Дистрибутивы лежат в <code>\\lis50\buildsystem\dotnetDrivers_Distrib\builds</code>. Нативные C++ драйверы регистрируются запуском <code>regdrv.exe</code> от имени Администратора.</p>
             </div>
           </div>
 
@@ -428,20 +430,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>В окне Сервера Драйверов (СД):</p>
-              <ul style="padding-left: 1.25rem;">
-                <li>Нажми «Добавить новую запись» (белый лист в левом углу).</li>
-                <li>Задай <strong>Код</strong> и <strong>Мнемонику</strong> строго без пробелов (например: <code>Sysmex_XN550</code>).</li>
-                <li>Выбери драйвер из выпадающего списка.</li>
-                <li>В графе «Настройки» нажми «...» и укажи параметр <strong>Transport</strong>:
-                  <ul>
-                    <li><code>TCPSERVER</code> — если анализатор подключается как TCP-клиент на открытый порт сервера.</li>
-                    <li><code>TCPCLIENT</code> — если анализатор ожидает подключения и сам является TCP-сервером.</li>
-                    <li><code>RS232</code> — если подключение по COM-порту или через Moxa Real COM.</li>
-                    <li><code>FILEEXCHANGE_CONFIG</code> — если прибор выгружает файлы в сетевую папку.</li>
-                  </ul>
-                </li>
-              </ul>
+              <p>Задать Код и Мнемонику без пробелов. Выбрать Transport: <code>TCPSERVER</code>, <code>TCPCLIENT</code>, <code>RS232</code> или <code>FILEEXCHANGE_CONFIG</code>.</p>
             </div>
           </div>
 
@@ -451,14 +440,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>Обязательно создай выделенную папку для логов прибора в <code>DrvLogs/&lt;Имя_Анализатора&gt;</code>.</p>
-              <p>Укажи кодировку канала (в ЛИС поддерживаются строго 4 типа):</p>
-              <ul style="padding-left: 1.25rem;">
-                <li><code>System.Text.ASCIIEncoding</code> (стандарт для 90% анализаторов ASTM).</li>
-                <li><code>System.Text.UTF8Encoding</code>.</li>
-                <li><code>System.Text.UnicodeEncoding</code>.</li>
-                <li><code>System.Text.SBCSCodePageEncoding</code>.</li>
-              </ul>
+              <p>Создать папку <code>DrvLogs/&lt;Анализатор&gt;</code>. Кодировки: <code>System.Text.ASCIIEncoding</code> или <code>windows-1251</code>.</p>
             </div>
           </div>
 
@@ -468,13 +450,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>Файл маппинга <code>&lt;ИмяДрайвера&gt;.VMOM.xml</code> помести в папку <code>Mapping/</code>.</p>
-              <p><strong>Требования:</strong></p>
-              <ul style="padding-left: 1.25rem;">
-                <li>Кодировка файла строго <strong>windows-1251</strong> (по регламенту архитектора Павла Перевалова).</li>
-                <li>Строгая очередность тегов: сначала <code>&lt;Test&gt;</code>, затем <code>&lt;SkipTests&gt;</code>, затем <code>&lt;AllowTests&gt;</code>.</li>
-                <li>Все знаки <code>&lt;</code> должны быть экранированы как <code>&amp;lt;</code>.</li>
-              </ul>
+              <p>Файл <code>&lt;Драйвер&gt;.VMOM.xml</code> в папке <code>Mapping/</code>. Строгий порядок тегов: <code>&lt;Test&gt;</code> &rarr; <code>&lt;SkipTests&gt;</code> &rarr; <code>&lt;AllowTests&gt;</code>. Экранирование <code>&amp;lt;</code>.</p>
             </div>
           </div>
 
@@ -484,12 +460,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>Попроси лаборанта прокатать контрольный материал со штрихкодированной пробиркой:</p>
-              <ol style="padding-left: 1.25rem;">
-                <li>Открой свежий лог в реальном времени.</li>
-                <li>Убедись в приходе строки <code>Firing results:</code> с ненулевым счетчиком ворков (<code>Collection Works contains X elements</code>).</li>
-                <li>Открой ТК ЛИС и проверь, что результаты сели в нужную пробу без искажения десятичных знаков.</li>
-              </ol>
+              <p>Прокатать контрольную пробу со штрихкодом. Проверить в логе строку <code>Firing results:</code> с ненулевым числом ворков и посадку результатов в АРМ ЛИС.</p>
             </div>
           </div>
 
@@ -499,17 +470,17 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>Переведи результаты в статус «Одобрен» врачом КДЛ и распечатай бланк на принтере. Сверь значения, референсные интервалы и единицы измерения с распечаткой на встроенном термопринтере анализатора.</p>
+              <p>Одобрить пробу врачом КЛД, напечатать бланк результатов и сверить значения, единицы и нормы с термопринтером анализатора.</p>
             </div>
           </div>
 
           <div class="sop-card">
             <button class="sop-header-btn">
-              <span><span class="sop-num">9</span>Шаг 9. Сдача в промышленную эксплуатацию и фиксация в Трекере</span>
+              <span><span class="sop-num">9</span>Шаг 9. Сдача в эксплуатацию и закрытие в Трекере</span>
               <span class="sop-chevron">▼</span>
             </button>
             <div class="sop-content">
-              <p>Переведи Сервер Драйверов в режим автоматического запуска от планировщика/службы. В задаче Яндекс.Трекера (очередь <code>Delivery</code>) приложи паспорт подключения, файл маппинга и пример успешного лога. Переведи задачу в статус <code>Решен</code>.</p>
+              <p>Перевести СД в режим службы/планировщика. В задаче Трекера (очередь <code>Delivery</code>) прикрепить паспорт, лог и перевести задачу в статус «Решен».</p>
             </div>
           </div>
         </div>
@@ -540,7 +511,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
                 <li><strong>Интерфейс:</strong> TCP/IP Ethernet (RJ-45) или RS-232 через Moxa.</li>
                 <li><strong>Порт по умолчанию:</strong> TCP <code>5100</code> (Анализатор — клиент, СД — <code>TCPSERVER</code>).</li>
-                <li><strong>Протокол:</strong> ASTM 1394-97 (High-level) поверх ASTM 1381 (Low-level). Двусторонний Host Query.</li>
+                <li><strong>Протокол:</strong> ASTM 1394-97 поверх ASTM 1381. Двусторонний Host Query.</li>
                 <li><strong>Имя сборки:</strong> <code>LimsDrvNet.SysmexXN550.dll</code> (.NET 8) или <code>SysmexXTASTM.dll</code>.</li>
                 <li><strong>Подводный камень:</strong> Задача SRMDRV-337: в настройках драйвера включить отсечение суммарного параметра CBC+DIFF, иначе в ЛИС двоятся лейкоцитарные формулы.</li>
               </ul>
@@ -552,10 +523,9 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <h3 class="card-title">Roche Cobas 6000 / c311 / e411 (Биохимия и Иммунохимия)</h3>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
                 <li><strong>Интерфейс:</strong> RS-232 через Moxa NPort (режим Real COM).</li>
-                <li><strong>Параметры COM:</strong> Скорость <code>9600</code> или <code>19200</code>, 8 бит данных, четность None (N), 1 стоп-бит, аппаратный контроль потока None.</li>
-                <li><strong>Протокол:</strong> ASTM или HL7.</li>
+                <li><strong>Параметры COM:</strong> Скорость <code>9600</code> или <code>19200</code>, 8-N-1.</li>
+                <li><strong>Протокол:</strong> ASTM или HL7. Строгий таймаут 15 секунд на ответ <code>&lt;ACK&gt;</code>.</li>
                 <li><strong>Имя сборки:</strong> <code>Cobas6000.dll</code> / <code>LimsDrvNet.Cobas6000.dll</code>.</li>
-                <li><strong>Подводный камень:</strong> Строгий таймаут 15 секунд на ответ <code>&lt;ACK&gt;</code>. Если СД завис, Cobas блокирует линию. Решение: сбросить сессию утилитой <code>SendComPort.exe</code>.</li>
               </ul>
             </div>
           </div>
@@ -566,8 +536,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
                 <li><strong>Интерфейс:</strong> TCP/IP (порт 5100) или RS-232 COM-порт.</li>
                 <li><strong>Протокол:</strong> HL7 v2.3.1 (обрамление MLLP: <code>0x0B &lt;VT&gt;</code> ... <code>0x1C 0x0D &lt;FS&gt;&lt;CR&gt;</code>).</li>
-                <li><strong>Имя сборки:</strong> <code>LimsDrvNet.MindrayCL8000.dll</code>, <code>MindrayBC5300.dll</code>.</li>
-                <li><strong>Особенность:</strong> Требует немедленного подтверждения пакетом <code>MSA|AA|...</code> с совпадающим Message Control ID из MSH-10.</li>
+                <li><strong>Особенность:</strong> Требует немедленного подтверждения пакетом <code>MSA|AA|...</code>.</li>
               </ul>
             </div>
           </div>
@@ -577,8 +546,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <h3 class="card-title">bioMérieux Vitek 2 / Vitek MS (Микробиология)</h3>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
                 <li><strong>Интерфейс:</strong> Двусторонний ASTM или файловый обмен BCI через сетевую папку.</li>
-                <li><strong>Имя сборки:</strong> <code>VitekDriver.dll</code>.</li>
-                <li><strong>Специфика данных:</strong> Иерархическая структура: Микроорганизм &rarr; Антибиотики &rarr; МПК (Минимальная подавляющая концентрация) &rarr; Экспертная оценка (S - Чувствителен, I - Промежуточный, R - Резистентный).</li>
+                <li><strong>Иерархия данных:</strong> Микроорганизм &rarr; Антибиотики &rarr; МПК (MIC) &rarr; Экспертная оценка (S/I/R).</li>
               </ul>
             </div>
           </div>
@@ -587,10 +555,8 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
             <div class="card">
               <h3 class="card-title">Dirui H-100 / H-500 (Анализ мочи)</h3>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
-                <li><strong>Интерфейс:</strong> RS-232 COM-порт (DB9). Скорость 9600, 8-N-1.</li>
-                <li><strong>Протокол:</strong> Односторонний текстовый поток (Uni-directional).</li>
-                <li><strong>Имя сборки:</strong> <code>LimsDrvNet.DiruiH100.dll</code> (задача SRMDRV-346).</li>
-                <li><strong>Маппинг:</strong> Требует файла <code>.test.map</code> с заменой качественных тестов белка, глюкозы и лейкоцитов (Neg &rarr; Отрицательно, + &rarr; Слабоположительно).</li>
+                <li><strong>Интерфейс:</strong> RS-232 COM-порт (9600, 8-N-1). Односторонний поток.</li>
+                <li><strong>Сборка:</strong> <code>LimsDrvNet.DiruiH100.dll</code>. Требует маппинга качественных тестов.</li>
               </ul>
             </div>
           </div>
@@ -599,9 +565,8 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
             <div class="card">
               <h3 class="card-title">Dymind UN73 / DF55 (Гематология и Моча)</h3>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
-                <li><strong>Интерфейс:</strong> TCP/IP (порт 5100).</li>
-                <li><strong>Стек:</strong> Полностью на .NET 8 (задачи SRMDRV-336, SRMDRV-347, SRMDRV-348).</li>
-                <li><strong>Логирование:</strong> Структурированный JSON/Serilog в <code>log/Log_.log</code>.</li>
+                <li><strong>Интерфейс:</strong> TCP/IP (порт 5100). Стек: .NET 8 (SRMDRV-336, SRMDRV-347, SRMDRV-348).</li>
+                <li><strong>Логирование:</strong> Структурированный JSON/Serilog.</li>
               </ul>
             </div>
           </div>
@@ -611,8 +576,7 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
               <h3 class="card-title">Bio-Rad CFX96 / ДНК-Технология DT96 (ПЦР)</h3>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
                 <li><strong>Интерфейс:</strong> Файловый обмен (<code>FILEEXCHANGE_CONFIG</code>).</li>
-                <li><strong>Каталоги:</strong> Сетевые папки <code>InputDirectory</code> (выгрузка сырых CSV/XML от амплификатора) и <code>ArchiveDirectory</code>.</li>
-                <li><strong>Задачи в Трекере:</strong> DELIVERY-7 (CFX96), DELIVERY-9 (DT96).</li>
+                <li><strong>Каталоги:</strong> Сетевые папки <code>InputDirectory</code> и <code>ArchiveDirectory</code>.</li>
               </ul>
             </div>
           </div>
@@ -621,20 +585,17 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
             <div class="card">
               <h3 class="card-title">Abbott Architect c8000 / ci4100 (Иммунохимия)</h3>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
-                <li><strong>Интерфейс:</strong> RS-232 через Moxa NPort (9600, 8-N-1).</li>
-                <li><strong>Имя файла маппинга:</strong> <code>Architect.VMOM.xml</code>.</li>
-                <li><strong>Подводный камень:</strong> Кодировка VMOM обязана быть windows-1251. Обязательно экранировать знаки <code>&amp;lt;</code> в значении <code>&amp;lt;0.05</code>.</li>
+                <li><strong>Интерфейс:</strong> RS-232 через Moxa (9600, 8-N-1).</li>
+                <li><strong>Маппинг:</strong> <code>Architect.VMOM.xml</code> в кодировке windows-1251. Обязательно экранировать <code>&amp;lt;0.05</code>.</li>
               </ul>
             </div>
           </div>
 
           <div class="tab-pane" id="mat-alisei">
             <div class="card">
-              <h3 class="card-title">Alisei QS / LisaScan (ИФА планшетные фотометры)</h3>
+              <h3 class="card-title">Alisei QS / LisaScan (ИФА планшетные ридеры)</h3>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
-                <li><strong>Интерфейс:</strong> RS-232 COM-порт или файловый импорт матриц лунок 96-планшета.</li>
-                <li><strong>Задачи в Трекере:</strong> SRMDRV-327, SRMDRV-170.</li>
-                <li><strong>Особенность:</strong> Требует калибровки оптической плотности (OD) и расчета Cut-Off перед передачей качественного ответа в ЛИС.</li>
+                <li><strong>Интерфейс:</strong> RS-232 или файловый импорт матриц лунок 96-планшета.</li>
               </ul>
             </div>
           </div>
@@ -643,18 +604,115 @@ Test-NetConnection -ComputerName 192.168.10.55 -Port 5100</code>
             <div class="card">
               <h3 class="card-title">Регистратор тромбодинамики (Гемостаз)</h3>
               <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
-                <li><strong>Интерфейс:</strong> Файловый экспорт отчетов в формате XML/CSV.</li>
-                <li><strong>Задача в Трекере:</strong> SRMDRV-342 (Создание нового драйвера).</li>
-                <li><strong>Параметры:</strong> Скорость роста сгустка (V), задержка роста (Tlag), плотность сгустка (D).</li>
+                <li><strong>Интерфейс:</strong> Файловый экспорт отчетов в формате XML/CSV (задача SRMDRV-342).</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 7. T-SQL База знаний -->
+      <!-- 7. Кассовый сервис (Штрих-М / 54-ФЗ) -->
+      <section id="cash-service" class="doc-section">
+        <h2 class="section-title">7. Кассовый сервис (Штрих-М Кассир / ККМ / 54-ФЗ)</h2>
+        <p>
+          Сервис ККМ (<code>CashMachineService</code>) обеспечивает интеграцию ЛИС с кассовыми аппаратами и программой «Штрих-М Кассир» в соответствии с Федеральным законом № 54-ФЗ. Передает наименования услуг, суммы, ставки НДС, формирует фискальный чек и обрабатывает возвраты.
+        </p>
+
+        <div class="diagram-container">
+          <div class="mermaid">
+          flowchart LR
+            Web["WebLims 2.0 (порт 8082)<br>АРМ Регистратора"] <-->|"HTTP / JSON"| PrintSvc["Локальный сервис печати<br>(порт 54257)"]
+            PrintSvc <-->|"HTTP / SOAP"| CMSvc["Сервис ККМ (CashMachineService)<br>Windows-служба"]
+            CMSvc <-->|"Протокол Штрих-М"| Pos["Штрих-М Кассир v.5<br>(Демо на appserv1)"]
+            Pos <-->|"RS-232 / USB"| FR["Фискальный регистратор (ККМ)<br>Печать чека / ОФД"]
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">Архитектура и компоненты кассы</h3>
+            <ul style="padding-left: 1.25rem; font-size: 0.85rem; line-height: 1.7;">
+              <li><strong>АРМ с кассой:</strong> Рабочее место, к которому физически подключен фискальник. На нем крутится <code>CashMachineService</code> и кассовая программа.</li>
+              <li><strong>АРМ регистратора:</strong> Обычный компьютер без кассы. Установка сервиса ККМ не требуется — передача чеков идет по сети через Сервис локальной печати на адрес АРМ с кассой (например, <code>192.168.37.19:54257</code>).</li>
+              <li><strong>WebLims 2.0:</strong> Веб-модуль регистратуры (обычно на порту <code>8082</code>), откуда кассир видит заказы и нажимает «Оплатить».</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Разбор конфига CashMachineService.exe.config</h3>
+            <p style="font-size:0.85rem;">Файл живет в: <code>C:\Program Files (x86)\Innovasystem\CashMachineService\</code></p>
+            <ul style="padding-left: 1.25rem; font-size: 0.85rem; line-height: 1.7;">
+              <li><code>cmm_mode="Shtrih_M_CashierV5"</code> — режим интеграции со Штрих-М Кассир v5.</li>
+              <li><code>limsServerAddress</code> — IP-адрес центрального сервера ЛИС.</li>
+              <li><code>baseAddress</code> — локальный адрес веб-сервиса (прописывается в настройки сервиса печати).</li>
+              <li><code>cmm_shtrihm_service_baseAddress</code> — адрес для запросов от Штрих-М.</li>
+              <li><code>externalSystemCode</code> — мнемоника внешней системы из справочника ЛИС «Настройка обмена данными».</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert alert-purple">
+          <div class="alert-title">🎯 Чек-лист подключения кассы (Памятка для созвона с Дмитрием)</div>
+          <ol style="padding-left: 1.25rem; font-size: 0.85rem; line-height: 1.8;">
+            <li><strong>Сетевой доступ:</strong> С АРМ кассира должен быть доступ до сервера ЛИС (пинги, порты).</li>
+            <li><strong>Дистрибутивы:</strong> Взять актуальные инсталляторы из <code>\\WebLims2\AppData</code> или с обменника <code>Y:\Документация\!ЛИС\Сервис ККМ</code>.</li>
+            <li><strong>Настройка ЛИС:</strong> В Толстом Клиенте открыть <em>Справочники → Настройка обмена данными</em>, завести внешнюю систему типа «Сервис ККМ».</li>
+            <li><strong>Ставки НДС:</strong> В справочнике <em>«Прайс-листы»</em> проверить сопоставление налоговых ставок (Без НДС / 20% / 10%).</li>
+            <li><strong>Тестовый прогон:</strong> Зарегистрировать тестовую заявку в WebLims 2, провести фискальный чек на 1 рубль или в режиме эмулятора, убедиться в обновлении статуса заявки на «Оплачена».</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 8. Умный VPN (Split-Tunneling) -->
+      <section id="smart-vpn" class="doc-section">
+        <h2 class="section-title">8. Архитектура «Единый Умный VPN» (Smart Split-Tunneling)</h2>
+        <p>
+          Как настроить рабочий компьютер и телефон так, чтобы зарубежные сервисы (ChatGPT, OpenAI, заблокированные ресурсы) шли через финский VPS, российские сайты (Госуслуги, банки, Яндекс) шли напрямую без блокировок и капч, а корпоративная сеть Innova не падала от конфликта шлюзов.
+        </p>
+
+        <div class="diagram-container">
+          <div class="mermaid">
+          flowchart TD
+            Traffic["Любой исходящий запрос (Браузер / Приложения)"] --> Router{"Ядро маршрутизации<br>(V2Box / Sing-box / Shadowrocket)"}
+            
+            Router -->|"*.openai.com, chatgpt.com, twitter.com<br>Зарубежные заблокированные сайты"| Proxy["PROXY Туннель<br>(Финский VPS / VLESS Reality / AWG)"]
+            Router -->|"*.gosuslugi.ru, *.sberbank.ru, yandex.ru<br>geoip:ru (Все сайты РФ)"| Direct["DIRECT (Прямой интернет)<br>Домашний Wi-Fi / Сотовая вышка LTE"]
+            Router -->|"192.168.100.0/24, 192.168.61.0/24<br>*.innovasystem.pro"| InnovaVPN["INNOVA L2TP VPN<br>Офисный шлюз 192.168.61.3"]
+            
+            Proxy --> World["Глобальный интернет"]
+            Direct --> RuNet["Рунет без блокировок и капч"]
+            InnovaVPN --> Corp["Вики, Базы ЛИС, Стенды"]
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">Почему WireGuard в лоб не умеет «умный сплит»</h3>
+            <p>
+              WireGuard работает на 3-м сетевом уровне (IP-пакеты). Он не понимает доменные имена и категории сайтов на лету. Если в WireGuard указать <code>AllowedIPs = 0.0.0.0/0</code>, он завернет в Финляндию вообще весь трафик — российские банки и Госуслуги начнут выдавать капчи или блокировать доступ с зарубежных IP.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Идеальное решение: V2Box / Sing-box (Уже стоит на твоем Маке!)</h3>
+            <p>
+              На твоем Маке в списке сетевых служб уже зарегистрирован <strong>V2Box</strong> (на базе ядра Xray/Sing-box), а на Айфоне можно использовать V2Box или Shadowrocket.
+            </p>
+            <p><strong>Базовые правила маршрутизации (Routing Rules):</strong></p>
+            <ul style="padding-left: 1.25rem; font-size: 0.85rem; line-height: 1.7;">
+              <li><code>geoip:ru</code> &rarr; <strong>DIRECT</strong></li>
+              <li><code>geosite:category-gov-ru</code> &rarr; <strong>DIRECT</strong></li>
+              <li><code>IP 192.168.0.0/16</code> &rarr; <strong>DIRECT</strong> (не мешает офисному VPN)</li>
+              <li><code>geosite:openai</code> &rarr; <strong>PROXY</strong></li>
+              <li><code>FINAL / DEFAULT</code> &rarr; <strong>PROXY</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. T-SQL База знаний -->
       <section id="sql-knowledge" class="doc-section">
-        <h2 class="section-title">7. T-SQL База знаний для инженера ЛИС</h2>
+        <h2 class="section-title">9. T-SQL База знаний для инженера ЛИС</h2>
         <p>Критически важные запросы для администрирования боевой базы данных MS SQL Server:</p>
 
         <h3 class="subsection-title">1. Полная диагностика дедлоков и зависших транзакций</h3>
@@ -692,9 +750,9 @@ DELETE FROM SystemLock WHERE TableName LIKE '%Dictionary%';</code>
         </div>
       </section>
 
-      <!-- 8. Консольный командный центр -->
+      <!-- 10. Консольный командный центр -->
       <section id="cmd-center" class="doc-section">
-        <h2 class="section-title">8. Консольный командный центр (Быстрые команды для Windows Server)</h2>
+        <h2 class="section-title">10. Консольный командный центр (Быстрые команды для Windows Server)</h2>
         <p>Готовые однострочники для терминала при работе на сервере заказчика:</p>
 
         <div class="cmd-grid">
@@ -761,9 +819,9 @@ regdrv.exe</code>
         </div>
       </section>
 
-      <!-- 9. Интерактивный тренажер аварийных ситуаций -->
+      <!-- 11. Интерактивный тренажер аварийных ситуаций -->
       <section id="simulator" class="doc-section">
-        <h2 class="section-title">9. Интерактивный тренажер аварийных ситуаций (Проверь себя)</h2>
+        <h2 class="section-title">11. Интерактивный тренажер аварийных ситуаций (Проверь себя)</h2>
         <p>
           Реальные производственные кейсы из практики сопровождения. Выбери правильный алгоритм действий инженера внедрения и получи мгновенную обратную связь с объяснением:
         </p>
@@ -863,9 +921,9 @@ regdrv.exe</code>
         </div>
       </section>
 
-      <!-- 10. Трекер и Очереди задач -->
+      <!-- 12. Трекер и Очереди задач -->
       <section id="yandex-tracker" class="doc-section">
-        <h2 class="section-title">10. Яндекс.Трекер и Очереди задач компании</h2>
+        <h2 class="section-title">12. Яндекс.Трекер и Очереди задач компании</h2>
         <p>В компании вся работа ведется в Яндекс.Трекере (организация <code>innova innova &amp; Co</code>):</p>
 
         <div class="grid-2">
@@ -891,90 +949,92 @@ regdrv.exe</code>
         </div>
       </section>
 
-      <!-- 11. Чек-лист аттестации -->
+      <!-- 13. Программа адаптации и аттестации -->
       <section id="onboarding" class="doc-section">
-        <h2 class="section-title">11. План адаптации и подготовки к аттестации</h2>
-        <p>Отмечай выполненные пункты — прогресс сохраняется в браузере и синхронизируется со шкалой в сайдбаре:</p>
+        <h2 class="section-title">13. Официальная программа адаптации и аттестации (Фазы 0–7)</h2>
+        <p>
+          Составлена по официальному положению об испытательном сроке Innovasystem. Отмечай выполненные пункты — прогресс синхронизируется со шкалой в шапке:
+        </p>
 
-        <h3 class="subsection-title">Неделя 1: Доступы, Стенд и Архитектура</h3>
+        <h3 class="subsection-title">Фаза 0: Ориентация и предметная область — 2 дня [Уровень У1]</h3>
         <ul class="checklist">
           <li class="checklist-item">
             <input type="checkbox" id="c1">
             <label for="c1" class="checklist-text">
-              Настройка учетных записей и рабочего ПК
-              <div class="checklist-subtext">Домен novolabs.lan, корпоративная почта, Wiki, HelpDesk, Яндекс.Трекер.</div>
+              Настройка учетных записей и удаленного доступа
+              <div class="checklist-subtext">Домен novolabs.lan, почта, VPN L2TP innova, доступ к Wiki (192.168.100.253), Трекер.</div>
             </label>
           </li>
           <li class="checklist-item">
             <input type="checkbox" id="c2">
             <label for="c2" class="checklist-text">
-              Разворачивание MS SQL Server и тестовой базы ЛИС
-              <div class="checklist-subtext">Восстановление бэкапа .bak, создание логинов SQL, проверка подключения через SSMS.</div>
+              Топология развертывания ЛИС (Клиент ↔ Сервер ↔ БД)
+              <div class="checklist-subtext">Понимание ролей MS SQL Server, Apache Tomcat, Толстого клиента и WebLims 2.0.</div>
             </label>
           </li>
           <li class="checklist-item">
             <input type="checkbox" id="c3">
             <label for="c3" class="checklist-text">
-              Установка и запуск Толстого Клиента (ТК) ЛИС
-              <div class="checklist-subtext">Настройка config-файлов, проверка соединения с тестовой базой.</div>
+              Лабораторная терминология: Заявка → Проба → Работа → Бланк
+              <div class="checklist-subtext">Четкое понимание различия: «Регистрация заявки» ≠ «Регистрация пробы».</div>
             </label>
           </li>
         </ul>
 
-        <h3 class="subsection-title">Неделя 2: Анализаторы, Драйверы и Маппинг</h3>
+        <h3 class="subsection-title">Фаза 1: Сквозной процесс — на стенде руками — 1 неделя [Уровень У2]</h3>
         <ul class="checklist">
           <li class="checklist-item">
             <input type="checkbox" id="c4">
             <label for="c4" class="checklist-text">
-              Установка и настройка Сервера Драйверов
-              <div class="checklist-subtext">Регистрация службы Windows, конфигурирование COM/TCP каналов.</div>
+              Полный сквозной прогон «хэппи-пути» пробы
+              <div class="checklist-subtext">Регистрация заявки, сканирование ШК, распределение по штативам, ввод результатов, одобрение врачом, печать бланка.</div>
             </label>
           </li>
           <li class="checklist-item">
             <input type="checkbox" id="c5">
             <label for="c5" class="checklist-text">
-              Составление файла маппинга VMOM.xml
-              <div class="checklist-subtext">Сопоставление кодов тестов, проверка коэффициентов К и качественных замен.</div>
-            </label>
-          </li>
-          <li class="checklist-item">
-            <input type="checkbox" id="c6">
-            <label for="c6" class="checklist-text">
-              Чтение и анализ логов обмена ASTM / HL7
-              <div class="checklist-subtext">Поиск ошибок Handshake, разбор записей O и R, проверка контрольных сумм.</div>
+              Исключительные сценарии: брак, отмена, восстановление
+              <div class="checklist-subtext">Умение отменить исследование, забраковать пробу и восстановить работу при ошибке лаборанта.</div>
             </label>
           </li>
         </ul>
 
-        <h3 class="subsection-title">Неделя 3+: Боевые выезды и Аттестация</h3>
+        <h3 class="subsection-title">Фазы 2–4: Настройка справочников, интеграции и кассы [Уровни У3–У4]</h3>
         <ul class="checklist">
+          <li class="checklist-item">
+            <input type="checkbox" id="c6">
+            <label for="c6" class="checklist-text">
+              Конфигурация номенклатуры КДЛ (исследования, нормы, прайсы)
+              <div class="checklist-subtext">Поведение ЛИС задается справочниками, а не кодом. Настройка референсных интервалов и правил ШК.</div>
+            </label>
+          </li>
           <li class="checklist-item">
             <input type="checkbox" id="c7">
             <label for="c7" class="checklist-text">
-              Работа по заявкам в HelpDesk и Трекере
-              <div class="checklist-subtext">Решение реальных инцидентов сопровождения на промышленных базах.</div>
+              Подключение кассового сервиса (ККМ / Штрих-М Кассир v5)
+              <div class="checklist-subtext">Связка WebLims 2.0, сервиса печати 54257 и CashMachineService.exe.config по 54-ФЗ.</div>
             </label>
           </li>
           <li class="checklist-item">
             <input type="checkbox" id="c8">
             <label for="c8" class="checklist-text">
-              Учебный выезд в лабораторию с наставником
-              <div class="checklist-subtext">Подключение прибора в КДЛ, проверка маркировки штрихкодов, проверка передачи результатов.</div>
+              Интеграция анализаторов и составление VMOM.xml
+              <div class="checklist-subtext">Чтение логов ASTM/HL7, расчет контрольных сумм, маппинг тестов и сопряжение через Moxa.</div>
             </label>
           </li>
           <li class="checklist-item">
             <input type="checkbox" id="c9">
             <label for="c9" class="checklist-text">
-              Успешная сдача аттестации руководителю группы
-              <div class="checklist-subtext">Теоретический зачет и практическое решение аварийного кейса в лабораторном стенде.</div>
+              Успешная сдача контрольного тестирования (аттестация 30/90 дней)
+              <div class="checklist-subtext">Письменный зачет без ПК и смартфона: знание архитектуры, триаж логов и решение боевого кейса.</div>
             </label>
           </li>
         </ul>
       </section>
 
-      <!-- 12. Полный глоссарий -->
+      <!-- 14. Полный глоссарий -->
       <section id="glossary" class="doc-section">
-        <h2 class="section-title">12. Полный инженерный глоссарий</h2>
+        <h2 class="section-title">14. Полный инженерный глоссарий</h2>
         <div class="table-wrapper">
           <table>
             <thead>
@@ -989,6 +1049,7 @@ regdrv.exe</code>
               <tr><td><strong>ТК (Толстый клиент)</strong></td><td>Десктопное приложение ЛИС для Windows, основное рабочее место персонала КДЛ.</td></tr>
               <tr><td><strong>СД (Сервер драйверов)</strong></td><td>Служба сопряжения с анализаторами (LimsDriverServer) для двустороннего обмена.</td></tr>
               <tr><td><strong>СО (Сервер отчетов)</strong></td><td>Сервис формирования и вывода на печать бланков результатов и этикеток (FastReport / !RS_Backend).</td></tr>
+              <tr><td><strong>ККМ / Штрих-М</strong></td><td>Кассовый сервис (CashMachineService) для фискализации чеков по 54-ФЗ через WebLims.</td></tr>
               <tr><td><strong>НСИ</strong></td><td>Нормативно-справочная информация (справочники тестов, профилей, биоматериалов, норм).</td></tr>
               <tr><td><strong>ASTM 1394 / 1381</strong></td><td>Международный стандарт протокола обмена анализаторов по последовательным и сетевым портам.</td></tr>
               <tr><td><strong>HL7 v2.x</strong></td><td>Формат медицинских сообщений между ЛИС и МИС больницы (MSH, PID, OBR, OBX).</td></tr>
